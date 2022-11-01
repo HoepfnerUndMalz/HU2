@@ -23,7 +23,7 @@ public class GefaehrlicherAbend {
 }
 class Villa {
 
-    private List<Observer> observers = new ArrayList<Observer>();
+    private List<Observer> observers = new ArrayList<>();
 
     public void attach(Observer observer){
         observers.add(observer);
@@ -35,15 +35,15 @@ class Villa {
             observer.update();
         }
         if (observers.size() > 0){
-        System.out.println("Einbrecher läuft weg. Glück gehabt!");
+        System.out.println("Einbrecher laeuft weg. Glueck gehabt!");
         } else {
-            System.out.println("Einbrecher raeumt Tresor aus ... und ist über alle Berge.");
+            System.out.println("Einbrecher raeumt Tresor aus ... und ist ueber alle Berge.");
         }
-        System.out.println("");
+        System.out.println();
     }
 }
 
-abstract class Observer {
+ abstract class Observer {
     protected Villa subject;
     public abstract void update();
 }
@@ -83,7 +83,7 @@ class Wachmann extends Observer{
 
     @Override
     public void update() {
-        System.out.println("Halt oder ich schieße!");
+        System.out.println("Halt oder ich schiesse!");
     }
 }
 

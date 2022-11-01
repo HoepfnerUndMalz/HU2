@@ -1,68 +1,106 @@
 package se1.hu2.a2;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Figurenverwalter {
+
+
+    static ArrayList<Figure> figuresList = new ArrayList<>();
+
     public static void main(String[] args) {
-        ArrayList<Figure> figurenList = new ArrayList<Figure>();
 
-        Figure Kreis = new Figure("Kreis", "circle", 3, 0, 1);
-        Figure Quadrat = new Figure("Quadrat", "square", 4, 0, 1);
-        Figure Rechteck1 = new Figure("Rechteck1", "rectangle", 2, 5, 1);
-        Figure Rechteck2 = new Figure("Rechteck2", "rectangle", 2, 5, 2);
+        Circle Kreis = new Circle(3);
+        Rectangle Quadrat = new Rectangle(4, 4);
+        Rectangle Rechteck1 = new Rectangle(2, 5);
+        Rectangle Rechteck2 = new Rectangle(2, 5);
 
-        figurenList.add(Kreis);
-        figurenList.add(Quadrat);
-        figurenList.add(Rechteck1);
-        figurenList.add(Rechteck2);
+        figuresList.add(Kreis);
+        figuresList.add(Quadrat);
+        figuresList.add(Rechteck1);
+        figuresList.add(Rechteck2);
+        Rechteck2.scale(2);
 
-        for (int i = 0; i < figurenList.size(); i++) {
-//            System.out.println("Fläche Figur " + figurenList.get(i).name + ": " + figurenList.get(i).getFlaeche());
-            System.out.println("Fläche Figur " + (i+1) + " " + figurenList.get(i).name + ": " + figurenList.get(i).getFlaeche());
- //           System.out.println("Fläche Figur ",figurenList.get(i).type , ": " + figurenList.get(i).getFlaeche());
+        for (int i = 0; i < figuresList.size(); i++) {
+            System.out.println("Flaeche Figur " + (i + 1) + ": " + figuresList.get(i).getArea());
         }
+        getSumArea();
+    }
+        static void getSumArea() {
+            double sumArea = 0;
+            for (Figure figure : figuresList) {
+                sumArea += figure.getArea();
+            }
+            System.out.println("Summe der Flaechen: " + sumArea);
+        }
+}
 
-        getSumFlaeche(figurenList);
+interface Figure {
+    double getArea();
+
+    void scale(double factor);
+}
+
+class Rectangle implements Figure {
+    private double a;
+    private double b;
+
+    public Rectangle(double length, double width) {
+        a = length;
+        b = width;
     }
 
-    static void getSumFlaeche(ArrayList<Figure> figurenList) {
-        double sumFlaeche = 0;
-        for (Figure figure : figurenList) {
-            sumFlaeche += figure.getFlaeche();
-        }
-        System.out.println("Summe der Flächen: " + sumFlaeche);
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    @Override
+    public double getArea() {
+        return a * b;
+    }
+
+    @Override
+    public void scale(double factor) {
+        a *= factor;
+        b *= factor;
     }
 }
 
-class Figure {
-    String name;
-    String type;
-    int attribute1;
-    int attribute2;
-    int scale;
+class Circle implements Figure {
+    private double radius;
 
-    public Figure(String name, String type, int attribute1, int attribute2, int skale) {
-        this.name = name;
-        this.type = type;
-        this.attribute1 = attribute1;
-        this.attribute2 = attribute2;
-        this.scale = skale;
+    public Circle(double radius) {
+        this.radius = radius;
     }
 
-    double getFlaeche() {
-        if (scale == 0) {
-            scale = 1;
-        }
-        int attribute1local = attribute1 * scale;
-        int attribute2local = attribute2 * scale;
+    public double getRadius() {
+        return radius;
+    }
 
-        if (this.type == "circle") {
-            return Math.PI * Math.pow(attribute1local, 2);
-        } else if (this.type == "square") {
-            return Math.pow(attribute1local, 2);
-        } else if (this.type == "rectangle") {
-            return attribute1local * attribute2local;
-        } else {
-            return 0;
-        }
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double getArea() {
+        return radius * radius * Math.PI;
+    }
+
+    @Override
+    public void scale(double factor) {
+        this.radius *= factor;
     }
 }
+
+
